@@ -89,8 +89,8 @@ sap.ui.define([
                 aToDoLists.push(oNewTodo);
                 MessageToast.show(this._getText("addedItem",oNewTodo.item));
                 oViewModel.setProperty("/toDoList", aToDoLists);
-                oViewModel.setProperty("/newToDoAdd", { compDate:"Haven't done yet",}); // make empty form
-              
+                oViewModel.setProperty("/newToDo/item/", {}); // make empty form 
+                oViewModel.setProperty("/newToDo/date/", {}); // make empty form 
 
               },_checkItem: function () {
                 var oViewModel = this.getView().getModel("initialViewModel");
