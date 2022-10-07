@@ -8,7 +8,9 @@ sap.ui.define([
      */
     function (Controller , JSONModel, MessageToast) {
         "use strict";
-
+        var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+          pattern: "d MMM yyyy"
+        });
         return Controller.extend("fioriegitimhw1.controller.InitialView", {
             onInit: function () {
                 var oViewModel = new JSONModel({
@@ -41,15 +43,15 @@ sap.ui.define([
                     {
                        number: "1",
                        item:"deneme",
-                       date:"28/12/2021",
-                       compDate:"01/02/2022",
+                       date:" 18 Oct 2022",
+                       compDate:" 20 Oct 2022",
                        deletable:false,
                     },
                     {
                       number: "2",
                       item:"deneme",
-                      date:"01/01/1999",
-                      compDate:"08/01/1999",
+                      date:" 17 Oct 2022",
+                      compDate:" 17 Oct 2022",
                       deletable:false,
                    }
 
@@ -75,18 +77,20 @@ sap.ui.define([
                 if (!this._checkDate()) {
                   return;
                 }
+                
                 var oViewModel = this.getView().getModel("initialViewModel");
                 var aToDoLists = oViewModel.getProperty("/toDoList");
                 var oNewTodo = oViewModel.getProperty("/newToDoAdd");
                 oNewTodo.number = (parseInt(aToDoLists[aToDoLists.length-1].number) +1 )+ "";
                 oNewTodo.item = sItem;
-                oNewTodo.date = sDate;
+                oNewTodo.date = this._getDate2(sDate);
                 oNewTodo.deletable = true;
 
                 aToDoLists.push(oNewTodo);
                 MessageToast.show(this._getText("addedItem",oNewTodo.item));
                 oViewModel.setProperty("/toDoList", aToDoLists);
-                oViewModel.setProperty("/newToDoAdd", { compDate:"Haven't done yet",});
+                oViewModel.setProperty("/newToDoAdd", { compDate:"Haven't done yet",}); // make empty form
+              
 
               },_checkItem: function () {
                 var oViewModel = this.getView().getModel("initialViewModel");
@@ -104,19 +108,19 @@ sap.ui.define([
                 return bValid;
               },
               _checkDate: function () {
-                var oViewModel = this.getView().getModel("initialViewModel");
-                var sdate = oViewModel.getProperty("/newToDo/date/value");
-                var bValid = true;
-      
-                if (!sdate) {
-                  oViewModel.setProperty("/newToDo/date/valueState", "Error");
-                  oViewModel.setProperty(
-                    "/newToDo/date/value/valueStateText",
-                    this._getText("dateRequired", [])
-                  );
-                  bValid = false;
-                }
-                return bValid;
+                
+                  var oViewModel = this.getView().getModel("initialViewModel");
+                  var sdate = oViewModel.getProperty("/newToDo/date/value");
+                  var bValid = true;
+                  if (!sdate) {
+                    oViewModel.setProperty("/newToDo/date/valueState", "Error");
+                    oViewModel.setProperty(
+                      "/newToDo/date/value/valueStateText",
+                      this._getText("dateRequired", [])
+                    );
+                    bValid = false;
+                  }
+                  return bValid;
               },
 
             onValueChange: function(event){
@@ -168,12 +172,16 @@ sap.ui.define([
               },
             _getDate: function(){
                 var today = new Date();
-                var dd = today.getDate();
-                var mm = today.getMonth()+1; //January is 0!
-                var yyyy = today.getFullYear();
-                var today1 = ( dd+'/'+mm+'/'+yyyy);
-                return today1;
+                var dateLast = oDateFormat.format(today);
+                return dateLast;
             },
+            _getDate2: function(date){
+            
+              var dateLast = oDateFormat.parse(date);
+             
+              var nameDate = oDateFormat.format(dateLast); 
+              return nameDate;
+          },
          
         });
     });

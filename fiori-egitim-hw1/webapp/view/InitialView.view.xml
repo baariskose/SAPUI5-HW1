@@ -25,7 +25,8 @@
                     <FlexBox direction="Row" alignItems="Center" justifyContent="Center" width="100%"> 
                             <items >
                             <Input   value="{initialViewModel>/newToDo/item/value}"  valueState="{initialViewModel>/newToDo/item/valueState}" valueStateText="initialViewModel>/newToDo/item/valueStateText}" liveChange=".onValueChange" placeholder="item"/>
-                            <Input   value="{initialViewModel>/newToDo/date/value}"  valueState="{initialViewModel>/newToDo/date/valueState}" valueStateText="initialViewModel>/newToDo/date/valueStateText}" liveChange=".onValueChange" placeholder="date"/>
+                            <!-- <Input   value="{initialViewModel>/newToDo/date/value}"  valueState="{initialViewModel>/newToDo/date/valueState}" valueStateText="initialViewModel>/newToDo/date/valueStateText}" liveChange=".onValueChange" placeholder="date"/> -->
+                            <DatePicker value="{initialViewModel>/newToDo/date/value}" valueState="{initialViewModel>/newToDo/date/valueState}" valueStateText="initialViewModel>/newToDo/date/valueStateText}" liveChange=".onValueChange" id="DP1" placeholder="Enter Date"  /> 
                             <Button  type="Accept" press=".onAddItem"  text="Add" />
                             </items>
                     </FlexBox>

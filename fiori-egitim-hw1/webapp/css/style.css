@@ -1,2 +1,7 @@
 /* Enter your custom styles here */
 
+.DP1 input{
+    pointer-events: none;
+    color: transparent;
+    text-shadow: 0 0 0 gray;
+   }
